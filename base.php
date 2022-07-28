@@ -68,18 +68,37 @@ class DB{
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    function find($id){
-        $sql = "SELECT * FROM $this->table WHERE ";
-        if (is_array($id)) {
-            foreach($id as $key=>$value){
-                $tmp[]="`$key`='$value'";
+    // function find($id){
+    //     $sql = "SELECT * FROM $this->table WHERE ";
+    //     if (is_array($id)) {
+    //         foreach($id as $key=>$value){
+    //             $tmp[]="`$key`='$value'";
+    //         }
+    //         $sql .= join(" AND ", $tmp);
+    //     }else{
+    //         $sql .= "`id` = '$id'";
+    //     }
+    //     return $this->pdo->query($id)->fetch(PDO::FETCH_ASSOC);
+    // }
+
+    function find($arg){
+        $sql="select * from $this->table where";
+        
+            if(is_array($arg)){
+                foreach($arg as $key => $val){
+                    $tmp[]="`$key`='$val'";
+                }
+                //$sql = $sql . " where " . join(" && ",$tmp);
+                $sql .=  join(" && ",$tmp);
+            }else{
+                // $sql=$sql . $arg[0];
+                $sql .= " `id`='$arg'";
             }
-            $sql .= join(" AND ", $tmp);
-        }else{
-            $sql .= "`id` = '$id'";
-        }
-        return $this->pdo->query($id)->fetch(PDO::FETCH_ASSOC);
-    }
+       
+    
+        //echo $sql;
+        return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
+       }
 
     function save($array){
         if(isset($array['id'])){
@@ -142,16 +161,30 @@ class DB{
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 
     }
+} //物件class宣告結束
+$Total = new DB("total");
 
+//瀏覽人次的功能
 
-
-
-
-
-
-
-
+    //判斷現在有沒有SESSION
+if(!isset($_SESSION['total'])){
+    //包含下面的判斷式
+    $chkDate = $Total->math('count','id',['date'=>date("Y-m-d")]);
+    if($chkDate>=1){  
+        //宣告$total變數為資料庫抓回來的資料
+        $total = $Total->find(['date'=>date("Y-m-d")]);
+        //把抓回來的total欄位加一筆
+        $total['total']++;
+        //回寫
+        $Total->save($total);
+        //有登入狀態
+        $_SESSION['total']=1;
+    }else{
+        $Total->save(['date'=>date("Y-m-d"),'total'=>1]);
+        $_SESSION['total']=1;
+    }
 }
+
 
 
 
