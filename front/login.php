@@ -31,11 +31,25 @@
         let acc = $("#acc").val();
         let pw = $("#pw").val();
      // $.post("./api/chk_acc.php",{acc:acc},(res)=>{
-        $.post("./api/chk_acc.php",{acc},(res)=>{
-            console.log(res)
-            if(parseInt(res)===1){
+                //把東西送去給誰  送甚麼  送什麼回來
+        $.post("./api/chk_acc.php",{acc},(res)=>{   //外圈先判斷帳號是否存在
+            console.log('acc',res)
+            if(parseInt(res)===1){                  //若帳號存在
+                //內圈判斷帳號密碼是否正確
+                $.post("./api/chk_pw.php",{acc,pw},(res)=>{
+                    console.log('pw',res);
+                    if(parseInt(res)===1){      //如果帳號密碼存在  用下面判斷式分流管理員與普通人
+                        if(acc==='admin'){
+                         location.href='back.php'
+                        }else{
+                        location.href='index.php'
+                        }
+                    }else{                      // 如果密碼不存在
+                    alert("密碼錯誤");
+                }
 
-            }else{
+                })
+            }else{                                  //若帳號不存在
                 alert("查無帳號")
             }
         })
