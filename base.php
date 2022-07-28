@@ -16,11 +16,11 @@ function to($href){
 
 
 class DB{
-    public $dsn = "mysql:host=localhost;charset=utf8;dbname=b_quiz-2";
-    public $user = "root";
-    public $pw = "";
-    public $table;
-    public $pdo;
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=b_quiz-2";
+    protected $user = "root";
+    protected $pw = "";
+    protected $table;
+    protected $pdo;
     
     public function __construct($table){
         $this->table = $table; 
@@ -68,37 +68,21 @@ class DB{
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
     
-    // function find($id){
-    //     $sql = "SELECT * FROM $this->table WHERE ";
-    //     if (is_array($id)) {
-    //         foreach($id as $key=>$value){
-    //             $tmp[]="`$key`='$value'";
-    //         }
-    //         $sql .= join(" AND ", $tmp);
-    //     }else{
-    //         $sql .= "`id` = '$id'";
-    //     }
-    //     return $this->pdo->query($id)->fetch(PDO::FETCH_ASSOC);
-    // }
-
-    function find($arg){
-        $sql="select * from $this->table where ";
-        
-            if(is_array($arg)){
-                foreach($arg as $key => $val){
-                    $tmp[]="`$key`='$val'";
-                }
-                //$sql = $sql . " where " . join(" && ",$tmp);
-                $sql .=  join(" && ",$tmp);
-            }else{
-                // $sql=$sql . $arg[0];
-                $sql .= " `id`='$arg'";
+    function find($id){
+        $sql = "SELECT * FROM $this->table WHERE ";
+        if (is_array($id)) {
+            foreach($id as $key=>$value){
+                $tmp[]="`$key`='$value'";
             }
-       
-    
-        // echo $sql;
+            $sql .= join(" AND ", $tmp);
+        }else{
+            $sql .= "`id` = '$id'";
+        }
+    echo $sql;
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
-       }
+    }
+
+
 
     function save($array){
         if(isset($array['id'])){
@@ -164,6 +148,7 @@ class DB{
     }
 } //物件class宣告結束
 $Total = new DB("total");
+$User = new DB("user");
 
 //瀏覽人次的功能
 
