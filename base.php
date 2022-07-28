@@ -82,7 +82,7 @@ class DB{
     // }
 
     function find($arg){
-        $sql="select * from $this->table where";
+        $sql="select * from $this->table where ";
         
             if(is_array($arg)){
                 foreach($arg as $key => $val){
@@ -96,7 +96,7 @@ class DB{
             }
        
     
-        //echo $sql;
+        // echo $sql;
         return $this->pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
        }
 
@@ -112,6 +112,7 @@ class DB{
             $sql="insert into $this->table (`".join("`,`",array_keys($array))."`) 
                                      values('".join("','",$array)."')";
         }
+        // echo $sql;
 
         return $this->pdo->exec($sql);
     }
@@ -168,8 +169,9 @@ $Total = new DB("total");
 
     //判斷現在有沒有SESSION
 if(!isset($_SESSION['total'])){
-    //包含下面的判斷式
+    //包含下面的判斷式 確認有沒有該筆日期的紀錄 
     $chkDate = $Total->math('count','id',['date'=>date("Y-m-d")]);
+    //若有
     if($chkDate>=1){  
         //宣告$total變數為資料庫抓回來的資料
         $total = $Total->find(['date'=>date("Y-m-d")]);
@@ -179,6 +181,7 @@ if(!isset($_SESSION['total'])){
         $Total->save($total);
         //有登入狀態
         $_SESSION['total']=1;
+    //若無紀錄
     }else{
         $Total->save(['date'=>date("Y-m-d"),'total'=>1]);
         $_SESSION['total']=1;
