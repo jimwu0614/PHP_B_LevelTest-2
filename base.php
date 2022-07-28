@@ -34,7 +34,10 @@ class DB{
     * 3.查詢資料 all(),find() selete from $table 
     * 4.刪除資料 del()        delete from $table
     * 5.計算 max(),min(),count() ->math()  select math() from $table
-    * 
+    */
+
+    /*
+    * all()函式可能會有的狀況 
     * ($array) //特定欄位條件的多筆資料
     * ($sql)  //只有額外條件的多筆資料...limit $start,$div .... ,order by....,group by......
     * ($array,$sql) //有欄位條件又有額外條件的多筆資料....where  ..... limit ...., ..where ....order by.....
@@ -47,30 +50,37 @@ class DB{
     function all(...$arg){
         //基本前半段SQL語
         $sql = "SELECT * FROM $this->table ";
-        
+        //如果第一個參數存在
         if(isset($arg[0])){
-            if (is_array($arg[0])) {
+  
+            //如果第一個參數存在,而且是陣列 表示是要特定的範圍的全部資料
+            if (is_array($arg[0])) {  
                 foreach($arg[0] as $key=>$value){
                     $tmp[]="`$key`='$value'";
                 }
                 $sql .= " WHERE ". join(" AND ", $tmp);
 
-            }else{
+            //如果第一個參數存在,但是是限定條件的話,直接接在前半段SQL後面(order by||group by)
+            }else{   
                 $sql .= $arg[0];
             }
         }
-
+        //如果第二個參數存在,一定要放字串
         if(isset($arg[1])){
             $sql .= $arg[1];
         }
         
+        //如果$arg[0],$arg[0]都不存在  直接SELECT * FROM $table
         // echo $sql."<br>";
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
     
+    //只會傳一個條件進來
     function find($id){
         $sql = "SELECT * FROM $this->table WHERE ";
-        if (is_array($id)) {
+
+        //從all()複製過來  
+        if (is_array($id)) { 
             foreach($id as $key=>$value){
                 $tmp[]="`$key`='$value'";
             }
