@@ -24,8 +24,11 @@ include_once "base.php";
     <iframe name="back" style="display:none;"></iframe>
     <div id="all">
         <div id="title">
-            <?=date("m 月 d 號 l")?> | 今日瀏覽: 1 | 累積瀏覽: 36 </div>
-        <div id="title2">
+            <?=date("m 月 d 號 l")?> | 今日瀏覽: 1 | 累積瀏覽: 36 
+			<a href="index.php" style="float:right">回首頁</a>
+		</div>
+        <div id="title2" title="健康促進網-回首頁" onclick="location.href='index.php'">
+		<img src="./icon/02B01.jpg" alt="">
 
         </div>
         <div id="mm">
