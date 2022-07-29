@@ -163,6 +163,7 @@ class DB{
 $Total = new DB("total");
 $User = new DB("user");
 $News = new DB("news");
+$Que = new DB("que");
 
 //瀏覽人次的功能
 
