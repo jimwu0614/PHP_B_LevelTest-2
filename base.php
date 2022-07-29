@@ -124,6 +124,8 @@ class DB{
         }else{
             $sql .= "`id` = '$id'";
         }
+        // echo $sql;
+
         return $this->pdo->exec($id);
     }
 
