@@ -28,11 +28,11 @@
         let ids = new Array(); //宣告ids為陣列
 
         $("table input[type='checkbox']:checked").each((idx, box) => {
-            console.log(box);
+            // console.log(box);
             ids.push($(box).val())
         })
-        $.post("./api/del_user.php", {del: ids}, () => {
-
+        $.post("./api/del_user.php", {del: ids}, (res) => {
+            console.log(res);
             $.get("./api/users.php", (users) => {  //刪除完後再讀取一次
                 $("#users").html(users)
             })

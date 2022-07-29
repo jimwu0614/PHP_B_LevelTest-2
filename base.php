@@ -115,7 +115,7 @@ class DB{
     function del($id){
 
         //複製find
-        $sql = "SELECT  FROM $this->table WHERE ";
+        $sql = "DELETE FROM $this->table WHERE ";
         if (is_array($id)) {
             foreach($id as $key=>$value){
                 $tmp[]="`$key`='$value'";
@@ -124,9 +124,9 @@ class DB{
         }else{
             $sql .= "`id` = '$id'";
         }
-        // echo $sql;
+        echo $sql;
 
-        return $this->pdo->exec($id);
+        return $this->pdo->exec($sql);
     }
 
     function math($math,$col,...$arg){
