@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 include_once "base.php";
 ?>
 
@@ -26,6 +26,7 @@ include_once "base.php";
         <div id="title">
 												       <!-- 抓回單筆資料                                              用math(sum)加總 -->
             <?=date("m 月 d 號 l")?> | 今日瀏覽:  <?=$Total->find(['date'=>date("Y-m-d")])['total'];?> | 累積瀏覽: <?=$Total->math('sum','total');?> 
+
 			<a href="index.php" style="float:right">回首頁</a>
 		</div>
         <div id="title2" title="健康促進網-回首頁" onclick="location.href='index.php'">
