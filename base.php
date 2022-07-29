@@ -162,6 +162,7 @@ class DB{
 } //物件class宣告結束
 $Total = new DB("total");
 $User = new DB("user");
+$News = new DB("news");
 
 //瀏覽人次的功能
 
