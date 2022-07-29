@@ -1,5 +1,10 @@
 ﻿<?php
 include_once "base.php";
+//如果沒有管理員登入狀態的話  輸入網址會被送回index
+if(!isset($_SESSION['user']) or $_SESSION['user']!=='admin'){
+	to("index.php");
+	exit();
+ }
 ?>
 
 <!DOCTYPE html
@@ -46,7 +51,26 @@ include_once "base.php";
 						請民眾踴躍投稿電子報，讓電子報成為大家互相交流、分享的園地！詳見最新文章
 					</marquee>
                     <span style="width:18%; display:inline-block;">
-                        <a href="?do=login">會員登入</a>
+                    <?php
+							if(isset($_SESSION['user'])){
+								if($_SESSION['user']==='admin'){
+								?>
+								歡迎，<?=$_SESSION['user'];?>
+								<button onclick="location.href='back.php'">管理</button>
+								|<button onclick='logout()'>登出</button>
+								<?php
+								}else{
+							?>
+							歡迎，<?=$_SESSION['user'];?>
+							<button onclick='logout()'>登出</button>
+							<?php
+							}
+							}else{
+							?>
+							<a href="?do=login">會員登入</a>
+							<?php	
+							}
+                    ?>
                     </span>
                     <div class="content">
 						<?php
