@@ -16,7 +16,7 @@ function to($href){
 
 
 class DB{
-    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=b_quiz-2";
+    protected $dsn = "mysql:host=localhost;charset=utf8;dbname=b_quiz_2";
     protected $user = "root";
     protected $pw = "";
     protected $table;
@@ -160,10 +160,10 @@ class DB{
 
     }
 } //物件class宣告結束
-$Total = new DB("total");
-$User = new DB("user");
-$News = new DB("news");
-$Que = new DB("que");
+$Total = new DB("b_quiz_2_total");
+$User = new DB("b_quiz_2_user");
+$News = new DB("b_quiz_2_news");
+$Que = new DB("b_quiz_2_que");
 
 //瀏覽人次的功能
 
