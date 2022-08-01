@@ -1,7 +1,7 @@
 <fieldset>
 
     <legend>目前位置：首頁 > 最新文章區</legend>
-    <table>
+    <table id="news">
         <tr>
             <td width="30%">標題</td>
             <td width="50%">內容</td>
@@ -19,9 +19,13 @@
         foreach ($rows as $row) {
         ?>
             <tr>
-                <td><?= $row['title']; ?></td>
+                <td class="title"><?= $row['title']; ?></td>
                 <td><?= mb_substr($row['text'], 0, 20); ?>...</td>
-                <td></td>
+                <td class="title"><?=$row['title'];?></td>
+                <td>
+                    <span class="summary"><?=mb_substr($row['text'],0,20);?>...</span>
+                    <span class="full" style='display:none'><?=nl2br($row['text']);?></span>
+                </td>
             </tr>
         <?php
         }
@@ -51,3 +55,10 @@
         ?>
     </div>
 </fieldset>
+
+<script>
+$(".title").on("click",function(){
+    $(this).next().children().toggle()
+})
+
+</script> 

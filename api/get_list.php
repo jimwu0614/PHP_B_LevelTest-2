@@ -6,6 +6,8 @@ $array['癌症防治']=3;
 $array['慢性病防治']=4; */
 
 $array=[ "健康新知"=>"1", "菸害防制"=>"2", "癌症防治"=>"3", "慢性病防治"=>"4", ];
+
+//從po.php來的get
 $type=$array[$_GET['type']];
 
 $rows=$News->all(['type'=>$type]);

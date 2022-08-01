@@ -1,7 +1,7 @@
 <fieldset>
 
     <legend>目前位置：首頁 > 人氣文章區</legend>
-    <table>
+    <table id="pop">
         <tr>
             <td width="30%">標題</td>
             <td width="50%">內容</td>
