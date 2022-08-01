@@ -26,6 +26,17 @@
                     <span class="summary"><?=mb_substr($row['text'],0,20);?>...</span>
                     <span class="full" style='display:none'><?=nl2br($row['text']);?></span>
                 </td>
+                <td>
+            <?php 
+                if(isset($_SESSION['user'])){
+                    if($Log->math('count','id',['news'=>$row['id'],'user'=>$_SESSION['user']])>0){
+                        echo "<a class='great' href='#' data-id='{$row['id']}'>收回讚</a>";
+                    }else{
+                        echo "<a class='great' href='#' data-id='{$row['id']}'>讚</a>";
+                    }
+                }
+            ?>
+            </td>
             </tr>
         <?php
         }
@@ -61,4 +72,19 @@ $(".title").on("click",function(){
     $(this).next().children().toggle()
 })
 
+
+$(".great").on("click",function(){
+    let type=$(this).text()
+    let num=parseInt($(this).siblings('span').text())
+    let id=$(this).data('id')
+    $.post('./api/good.php',{id,type},()=>{
+        if(type==='讚'){
+            $(this).text('收回讚')
+            $(this).siblings('span').text(num+1)
+        }else{
+            $(this).text('讚')
+            $(this).siblings('span').text(num-1)
+        }
+    })
+})
 </script> 

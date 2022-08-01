@@ -164,6 +164,7 @@ $Total = new DB("b_quiz_2_total");
 $User = new DB("b_quiz_2_user");
 $News = new DB("b_quiz_2_news");
 $Que = new DB("b_quiz_2_que");
+$Log = new DB("b_quiz_2_log");
 
 //瀏覽人次的功能
 

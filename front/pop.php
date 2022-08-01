@@ -24,7 +24,20 @@
                     <span class="summary"><?= mb_substr($row['text'], 0, 20); ?>...</span>
                     <div class="modal"><?= nl2br($row['text']); ?></div>
                 </td>
-                <td></td>
+                <td>
+                    <span><?=$row['good']?></span>個人說<img src="./icon/02B03.jpg" alt="" width="25px">
+                    <?php 
+                if(isset($_SESSION['user'])){
+
+                    //判斷是否已經按過讚
+                    if($Log->math('count','id',['news'=>$row['id'],'user'=>$_SESSION['user']])>0){
+                        echo " - <a class='great' href='#' data-id='{$row['id']}'>收回讚</a>";
+                    }else{
+                        echo " - <a class='great' href='#' data-id='{$row['id']}'>讚</a>";
+                    }
+                }
+                ?>
+                </td>
             </tr>
         <?php
         }
@@ -83,4 +96,22 @@ $(".pop").hover(
     }
 )
  */
+
+
+
+
+$(".great").on("click",function(){
+    let type=$(this).text()
+    let num=parseInt($(this).siblings('span').text())
+    let id=$(this).data('id')
+    $.post('./api/good.php',{id,type},()=>{
+        if(type==='讚'){
+            $(this).text('收回讚')
+            $(this).siblings('span').text(num+1)
+        }else{
+            $(this).text('讚')
+            $(this).siblings('span').text(num-1)
+        }
+    })
+})
 </script> 
