@@ -21,7 +21,7 @@
             <tr>
                 <td class="title"><?= $row['title']; ?></td>
                 <td><?= mb_substr($row['text'], 0, 20); ?>...</td>
-                <td class="title"><?=$row['title'];?></td>
+                <td class="title clo" style="cursor:pointer"><?=$row['title'];?></td>
                 <td>
                     <span class="summary"><?=mb_substr($row['text'],0,20);?>...</span>
                     <span class="full" style='display:none'><?=nl2br($row['text']);?></span>
