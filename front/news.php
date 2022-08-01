@@ -8,25 +8,23 @@
             <td width="20%"></td>
         </tr>
         <?php
-        $all = $News->math('count', 'id', ['sh' => 1]);
-        $div = 5;
-        $pages = ceil($all / $div);
-        $now = $_GET['p'] ?? 1;
-        $start = ($now - 1) * $div;
+        $all=$News->math('count','id',['sh'=>1]);
+        $div=5;
+        $pages=ceil($all/$div);
+        $now=$_GET['p']??1;
+        $start=($now-1)*$div;
 
-        $rows = $News->all(['sh' => 1], " limit $start,$div");
+        $rows=$News->all(['sh'=>1]," limit $start,$div");
 
-        foreach ($rows as $row) {
+        foreach($rows as $row){
         ?>
-            <tr>
-                <td class="title"><?= $row['title']; ?></td>
-                <td><?= mb_substr($row['text'], 0, 20); ?>...</td>
-                <td class="title clo" style="cursor:pointer"><?=$row['title'];?></td>
-                <td>
-                    <span class="summary"><?=mb_substr($row['text'],0,20);?>...</span>
-                    <span class="full" style='display:none'><?=nl2br($row['text']);?></span>
-                </td>
-                <td>
+        <tr>
+            <td class="title clo" style="cursor:pointer"><?=$row['title'];?></td>
+            <td>
+                <span class="summary"><?=mb_substr($row['text'],0,20);?>...</span>
+                <span class="full" style='display:none'><?=nl2br($row['text']);?></span>
+            </td>
+            <td>
             <?php 
                 if(isset($_SESSION['user'])){
                     if($Log->math('count','id',['news'=>$row['id'],'user'=>$_SESSION['user']])>0){
@@ -35,10 +33,10 @@
                         echo "<a class='great' href='#' data-id='{$row['id']}'>讚</a>";
                     }
                 }
-            ?>
+                ?>
             </td>
-            </tr>
-        <?php
+        </tr>
+        <?php 
         }
 
         ?>
