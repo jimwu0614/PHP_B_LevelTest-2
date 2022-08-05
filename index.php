@@ -47,7 +47,7 @@ include_once "base.php";
 		<img src="./icon/02B01.jpg" alt="">
 
         </div>
-        <div id="mm">
+        <div id="mm" >
             <div class="hal" id="lef">
                 <a class="blo" href="?do=po">分類網誌</a>
                 <a class="blo" href="?do=news">最新文章</a>

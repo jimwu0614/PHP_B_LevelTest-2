@@ -104,6 +104,7 @@ class DB{
 
             $sql="update $this->table set  ".join(',',$tmp)."  where `id`='{$array['id']}'";
         }else{
+            //新增
             $sql="insert into $this->table (`".join("`,`",array_keys($array))."`) 
                                      values('".join("','",$array)."')";
         }
