@@ -38,17 +38,13 @@
     })
 
     function getList(type) {
-        $.get("./api/get_list.php", {
-            type
-        }, (list) => {
+        $.get("./api/get_list.php", {type}, (list) => {
             $("#content").html(list)
         })
     }
 
     function getNews(id) {
-        $.get("./api/get_news.php", {
-            id
-        }, (news) => {
+        $.get("./api/get_news.php", {id}, (news) => {
             $("#content").html(news)
         })
     }
